@@ -148,7 +148,7 @@ export const getIosUpdateFilesContentOptions = ({
         if (matchesDisplayName === null) {
           input = input.replace(
             new RegExp(`INFOPLIST_FILE = ${cleanNewPathContentStr}/Info.plist;`, 'g'),
-            `INFOPLIST_FILE = ${cleanNewPathContentStr}/Info.plist;\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = ${newNameWithQuotes};`
+            `INFOPLIST_FILE = ${cleanNewPathContentStr}/Info.plist;\n\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = ${newNameWithQuotes};`
           );
         }
 
