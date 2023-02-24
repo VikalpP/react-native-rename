@@ -143,7 +143,7 @@ export const getIosUpdateFilesContentOptions = ({
     {
       files: 'ios/*.xcodeproj/project.pbxproj',
       processor: input => {
-        const matchesDisplayName = input.match(/INFOPLIST_KEY_CFBundleDisplayName = "(.*)"/g);
+        const matchesDisplayName = input.match(/INFOPLIST_KEY_CFBundleDisplayName = "?(.*)"?/g);
         // If there is no display name, add it
         if (matchesDisplayName === null) {
           input = input.replace(
