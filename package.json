@@ -1,6 +1,6 @@
 {
-  "name": "react-native-rename",
-  "version": "3.2.12",
+  "name": "@vikalp_p/react-native-rename",
+  "version": "0.0.0-development",
   "description": "Rename react-native app with just one command",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "prepublish": "npm run build",
     "relink": "npm unlink react-native-rename && npm run prepublish && npm link",
     "format": "prettier --write 'src/*.{js,jsx}'",
-    "lint": "eslint 'src/*.{js,jsx}'"
+    "lint": "eslint 'src/*.{js,jsx}'",
+    "semantic-release": "semantic-release"
   },
   "husky": {
     "hooks": {
@@ -25,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/junedomingo/react-native-rename.git"
+    "url": "https://github.com/VikalpP/react-native-rename.git"
   },
   "keywords": [
     "react-native",
@@ -56,7 +57,8 @@
     "husky": "^8.0.3",
     "jest": "^29.4.3",
     "lint-staged": "^13.1.2",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.4",
+    "semantic-release": "^19.0.5"
   },
   "dependencies": {
     "chalk": "^5.2.0",
