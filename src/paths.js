@@ -15,7 +15,7 @@ export const buildPaths = [
   'android/build/*',
 ];
 
-const needsDoubleQuotes = (str) => str.includes(' ');
+const needsDoubleQuotes = str => str.includes(' ');
 
 export const getIosFoldersAndFilesPaths = ({ currentPathContentStr, newPathContentStr }) => {
   const cleanNewPathContentStr = cleanString(newPathContentStr);
@@ -137,14 +137,18 @@ export const getIosUpdateFilesContentOptions = ({
     },
     {
       files: 'ios/*.xcodeproj/project.pbxproj',
+      from: ['productname'],
+      to: ['productName'],
+    },
+    {
+      files: 'ios/*.xcodeproj/project.pbxproj',
       processor: input => {
         const matchesDisplayName = input.match(/INFOPLIST_KEY_CFBundleDisplayName = "(.*)"/g);
         // If there is no display name, add it
         if (matchesDisplayName === null) {
           input = input.replace(
             new RegExp(`INFOPLIST_FILE = ${cleanNewPathContentStr}/Info.plist;`, 'g'),
-            `INFOPLIST_FILE = ${cleanNewPathContentStr}/Info.plist;
-        INFOPLIST_KEY_CFBundleDisplayName = ${newNameWithQuotes};`
+            `INFOPLIST_FILE = ${cleanNewPathContentStr}/Info.plist;\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = ${newNameWithQuotes};`
           );
         }
 
