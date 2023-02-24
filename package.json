@@ -10,8 +10,7 @@
     "prepublish": "npm run build",
     "relink": "npm unlink react-native-rename && npm run prepublish && npm link",
     "format": "prettier --write 'src/*.{js,jsx}'",
-    "lint": "eslint 'src/*.{js,jsx}'",
-    "semantic-release": "semantic-release"
+    "lint": "eslint 'src/*.{js,jsx}'"
   },
   "husky": {
     "hooks": {
