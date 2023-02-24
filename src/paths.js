@@ -15,6 +15,8 @@ export const buildPaths = [
   'android/build/*',
 ];
 
+const needsDoubleQuotes = (str) => str.includes(' ');
+
 export const getIosFoldersAndFilesPaths = ({ currentPathContentStr, newPathContentStr }) => {
   const cleanNewPathContentStr = cleanString(newPathContentStr);
 
@@ -41,6 +43,7 @@ export const getIosUpdateFilesContentOptions = ({
   newPathContentStr,
   newBundleID,
 }) => {
+  const newNameWithQuotes = needsDoubleQuotes(newName) ? `"${newName}"` : newName;
   const encodedNewName = encodeXmlEntities(newName);
   const encodedCurrentName = encodeXmlEntities(currentName);
   const cleanNewPathContentStr = cleanString(newPathContentStr);
@@ -82,7 +85,7 @@ export const getIosUpdateFilesContentOptions = ({
     {
       files: 'ios/*.xcodeproj/project.pbxproj',
       from: [
-        new RegExp(/INFOPLIST_KEY_CFBundleDisplayName = "(.*)"/, 'g'),
+        new RegExp(/INFOPLIST_KEY_CFBundleDisplayName = (.*)/, 'g'),
         new RegExp(`remoteInfo = ${cleanNewPathContentStr};`, 'gi'),
         new RegExp(`\\bpath = ${cleanNewPathContentStr}Tests.xctest\\b`, 'gi'),
         new RegExp(`\\bpath = ${cleanNewPathContentStr}Tests.m\\b`, 'gi'),
@@ -107,28 +110,28 @@ export const getIosUpdateFilesContentOptions = ({
         new RegExp(`${currentPathContentStr}Release.entitlements`, 'gi'),
       ],
       to: [
-        `INFOPLIST_KEY_CFBundleDisplayName = "${newName}"`,
-        `remoteInfo = "${cleanNewPathContentStr}";`,
-        `path = "${cleanNewPathContentStr}Tests.xctest"`,
-        `path = "${cleanNewPathContentStr}Tests.m"`,
-        `path = "${cleanNewPathContentStr}.app"`,
-        `path = "${cleanNewPathContentStr}/AppDelegate.h"`,
-        `path = "${cleanNewPathContentStr}/AppDelegate.mm"`,
-        `path = "${cleanNewPathContentStr}/Images.xcassets"`,
-        `path = "${cleanNewPathContentStr}/Info.plist"`,
-        `path = "${cleanNewPathContentStr}/main.m"`,
-        `path = "${cleanNewPathContentStr}/LaunchScreen.storyboard"`,
-        `path = "${cleanNewPathContentStr}Tests"`,
-        `name = "${cleanNewPathContentStr}Tests";`,
-        `name = "${cleanNewPathContentStr}";`,
-        `name = "${cleanNewPathContentStr}";`,
-        `productName = "${cleanNewPathContentStr}";`,
-        `productName = "${cleanNewPathContentStr}";`,
-        `productName = "${cleanNewPathContentStr}Tests;"`,
-        `INFOPLIST_FILE = "${cleanNewPathContentStr}Tests/Info.plist";`,
-        `INFOPLIST_FILE = "${cleanNewPathContentStr}/Info.plist";`,
-        `PRODUCT_NAME = "${cleanNewPathContentStr}";`,
-        `PRODUCT_NAME = "${cleanNewPathContentStr}";`,
+        `INFOPLIST_KEY_CFBundleDisplayName = ${newNameWithQuotes}`,
+        `remoteInfo = ${cleanNewPathContentStr};`,
+        `path = ${cleanNewPathContentStr}Tests.xctest`,
+        `path = ${cleanNewPathContentStr}Tests.m`,
+        `path = ${cleanNewPathContentStr}.app`,
+        `path = ${cleanNewPathContentStr}/AppDelegate.h`,
+        `path = ${cleanNewPathContentStr}/AppDelegate.mm`,
+        `path = ${cleanNewPathContentStr}/Images.xcassets`,
+        `path = ${cleanNewPathContentStr}/Info.plist`,
+        `path = ${cleanNewPathContentStr}/main.m`,
+        `path = ${cleanNewPathContentStr}/LaunchScreen.storyboard`,
+        `path = ${cleanNewPathContentStr}Tests`,
+        `name = ${cleanNewPathContentStr}Tests;`,
+        `name = ${cleanNewPathContentStr};`,
+        `name = ${cleanNewPathContentStr};`,
+        `productName = ${cleanNewPathContentStr};`,
+        `productName = ${cleanNewPathContentStr};`,
+        `productName = ${cleanNewPathContentStr}Tests;`,
+        `INFOPLIST_FILE = ${cleanNewPathContentStr}Tests/Info.plist;`,
+        `INFOPLIST_FILE = ${cleanNewPathContentStr}/Info.plist;`,
+        `PRODUCT_NAME = ${cleanNewPathContentStr};`,
+        `PRODUCT_NAME = ${cleanNewPathContentStr};`,
         `${cleanNewPathContentStr}Release.entitlements`,
       ],
     },
@@ -139,9 +142,9 @@ export const getIosUpdateFilesContentOptions = ({
         // If there is no display name, add it
         if (matchesDisplayName === null) {
           input = input.replace(
-            new RegExp(`INFOPLIST_FILE = "${cleanNewPathContentStr}/Info.plist";`, 'g'),
-            `INFOPLIST_FILE = "${cleanNewPathContentStr}/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "${newName}";`
+            new RegExp(`INFOPLIST_FILE = ${cleanNewPathContentStr}/Info.plist;`, 'g'),
+            `INFOPLIST_FILE = ${cleanNewPathContentStr}/Info.plist;
+        INFOPLIST_KEY_CFBundleDisplayName = ${newNameWithQuotes};`
           );
         }
 
@@ -149,12 +152,12 @@ export const getIosUpdateFilesContentOptions = ({
         if (newBundleID) {
           input = input.replace(
             /PRODUCT_BUNDLE_IDENTIFIER = "(.*)"/g,
-            `PRODUCT_BUNDLE_IDENTIFIER = "${newBundleID}"`
+            `PRODUCT_BUNDLE_IDENTIFIER = ${newBundleID}`
           );
 
           input = input.replace(
             /PRODUCT_BUNDLE_IDENTIFIER = (.*)/g,
-            `PRODUCT_BUNDLE_IDENTIFIER = "${newBundleID}";`
+            `PRODUCT_BUNDLE_IDENTIFIER = ${newBundleID};`
           );
         }
 
