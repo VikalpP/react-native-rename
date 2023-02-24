@@ -11,7 +11,6 @@ import {
   getAndroidCurrentName,
   getIosCurrentName,
   getIosXcodeProjectPathName,
-  gitStageChanges,
   renameAndroidBundleIDFolders,
   renameIosFoldersAndFiles,
   showSuccessMessages,
@@ -130,7 +129,6 @@ program
 
     cleanBuilds();
     showSuccessMessages(newName);
-    gitStageChanges();
     checkPackageUpdate();
   });
 

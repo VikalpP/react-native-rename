@@ -468,13 +468,6 @@ If you like this tool, please give it a star on GitHub: https://github.com/juned
   );
 };
 
-export const gitStageChanges = () => {
-  shell.cd(APP_PATH);
-  shell.exec('git config --local core.autocrlf false');
-  shell.exec('git config --local core.safecrlf false');
-  shell.exec('git add .');
-};
-
 export const checkPackageUpdate = async () => {
   try {
     const res = await checkForUpdate(pjson);
