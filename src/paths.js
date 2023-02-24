@@ -110,7 +110,7 @@ export const getIosUpdateFilesContentOptions = ({
         new RegExp(`${currentPathContentStr}Release.entitlements`, 'gi'),
       ],
       to: [
-        `INFOPLIST_KEY_CFBundleDisplayName = ${newNameWithQuotes}`,
+        `INFOPLIST_KEY_CFBundleDisplayName = ${newNameWithQuotes};`,
         `remoteInfo = ${cleanNewPathContentStr};`,
         `path = ${cleanNewPathContentStr}Tests.xctest`,
         `path = ${cleanNewPathContentStr}Tests.m`,
